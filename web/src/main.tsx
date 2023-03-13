@@ -1,10 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+import Routes from './routes';
+
+import ThemeCustomization from './theme';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <ThemeCustomization>
+      <Routes />
+    </ThemeCustomization>
   </React.StrictMode>,
 )
