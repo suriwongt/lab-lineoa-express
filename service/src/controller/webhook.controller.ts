@@ -11,6 +11,8 @@ class WebhookController {
     }
     public handlePostWebHook = async (req: Request, res: Response, next: NextFunction) => {
         const { body } = req
+
+        console.log(req.body)
         const handleEventData = await Promise.all(
             body.events.map(async (event: WebhookEvent) => {
                 if (event.source.userId === 'Udeadbeefdeadbeefdeadbeefdeadbeef') {
@@ -18,7 +20,7 @@ class WebhookController {
                 }
                 switch (event.type) {
                     case 'message':
-                        await webhookService.handleReplyTokenMessage(event.replyToken, [event.message])
+                        await webhookService.handleReplyTokenMessage(event.replyToken, event.message, event.source)
                         break;
                     case 'follow':
                         // await lineService.handleAddFriend(event);
@@ -54,7 +56,7 @@ class WebhookController {
             })
         );
 
-        res.status(200).json({ message: "ok" })
+        res.status(200).json({ code: 200, data: handleEventData })
     }
 }
 
