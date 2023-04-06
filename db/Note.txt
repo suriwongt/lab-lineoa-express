@@ -1,0 +1,3 @@
+docker run --name mongodb -d -p 27017:27017 registry.gitlab.com/madee.tech/registry/lab-lineoa-express:db 
+
+docker run --name web -d -p 81:80 registry.gitlab.com/madee.tech/registry/lab-lineoa-express:web

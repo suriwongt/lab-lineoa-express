@@ -1,0 +1,35 @@
+version: '3'
+services:
+  mongodb:
+    image: mongodb/mongodb-community-server:6.0-ubi8
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/data/db
+
+  api:
+    image: registry.gitlab.com/madee.tech/registry/lab-lineoa-express:latest
+    container_name: lab-lineoa-express-api
+    ports:
+      - "3000:3000"
+    logging:
+          driver: "json-file"
+          options:
+            max-file: '3'
+            max-size: '500m'
+  web:
+    image: registry.gitlab.com/madee.tech/registry/lab-lineoa-express:web
+    container_name: lab-lineoa-express-web
+    ports:
+      - "81:80"
+    logging:
+      driver: "json-file"
+      options:
+        max-file: '3'
+        max-size: '500m'
+networks:
+  default:
+    external:
+      name: sandbox_network
+
