@@ -89,7 +89,6 @@ class WebhookService {
   async getHN(hn: string): Promise<ResponseHN> {
     return await axios
       .post(
-        // "http://192.168.99.6:8088/dev/patient/test",
         "https://rpi.praram9.com:8088/dev/patient/test",
         { hn },
         {
