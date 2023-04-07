@@ -25,7 +25,7 @@ class WebhookController {
   ) => {
     try {
       const { userId } = req.params;
-      const u = await user.find({
+      const u = await user.findOne({
         userId,
       });
       res.status(200).json(u);
@@ -39,7 +39,7 @@ class WebhookController {
     res: Response,
     next: NextFunction
   ) => {
-    const u = await user.findOne({});
+    const u = await user.find({});
     res.status(200).json({ code: 200, data: u });
   };
   public handlePostUser = async (

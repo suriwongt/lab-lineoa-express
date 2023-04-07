@@ -26,6 +26,7 @@ const initProfile: Profile = {
   displayName: "",
   pictureUrl: "",
 };
+
 function Home() {
   const [profile, setProfile] = useState(initProfile);
   const [loading, setLoading] = useState(false);

@@ -5,6 +5,8 @@ services:
     command: mongod --bind_ip_all
     container_name: mongodb
     restart: always
+    ports:
+      - "27017:27017"
     network_mode: bridge
   api:
     image: registry.gitlab.com/madee.tech/registry/lab-lineoa-express:latest

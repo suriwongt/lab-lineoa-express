@@ -13,12 +13,10 @@ class Routes {
     this.router.get(`/user`, this.user_controller.handleGetUser);
     this.router.get(`/user/:userId`, this.user_controller.handleGetUserById);
     this.router.post(`/user`, this.user_controller.handlePostUser);
-    this.router.delete(`/user/:userId`, this.user_controller.handleGetUser);
+    this.router.delete(`/user/:userId`, this.user_controller.handleDeleteUser);
 
     this.router.get(`/webhook`, this.hook_controller.handleGetWebHook);
     this.router.post(`/webhook`, this.hook_controller.handlePostWebHook);
-
-    //  this.router.get(`/webhook/test`, this.hook_controller.test);
   }
 }
 

@@ -1,24 +1,20 @@
-import { Autocomplete, TextField } from "@mui/material"
 import React from "react";
-import {
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-  BrowserRouter,
-  Route,
-  Routes,
-} from "react-router-dom";
-
-
-const Home = React.lazy(() => import('./Pages/Home'))
-
+const Home = React.lazy(() => import("./Pages/Home"));
+const Profile = React.lazy(() => import("./Pages/Profile"));
 
 function Routers() {
-  return <>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
-  </>
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/view" element={<Profile />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
 }
 
-export default Routers
+export default Routers;
