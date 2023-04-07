@@ -1,6 +1,7 @@
-import { Client, EventMessage, EventSource } from "@line/bot-sdk";
+import { Client, EventMessage, EventSource, Postback } from "@line/bot-sdk";
 import axios from "axios";
 import { searckMarketMessage } from "../template/message";
+import { ResponseHN } from "../models/user";
 
 class WebhookService {
   private line: Client;
@@ -9,6 +10,16 @@ class WebhookService {
     this.line = new Client({
       channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || "",
     });
+  }
+
+  async handlePostBack(
+    replyToken: string,
+    postback: Postback,
+    source: EventSource
+  ) {
+    const profile = await this.line.getProfile(source.userId || "");
+    if (postback.data === "profile") {
+    }
   }
 
   handleReplyTokenMessage = async (
@@ -20,25 +31,10 @@ class WebhookService {
       console.log(source);
       switch (message.type) {
         case "text":
-          const profile = await this.line.getProfile(source.userId || "");
-
-          // this.line.replyMessage(replyToken, [
-          //   message,
-          //   {
-          //     type: "image",
-          //     originalContentUrl: profile.pictureUrl,
-          //     previewImageUrl: profile.pictureUrl,
-          //   },
-          // ]);
-
           await this.line.replyMessage(replyToken, [
+            { type: "text", text: "ยินดีให้บริการกรุณาเลือกเมนู" },
             searckMarketMessage(["ชาย", "หญิง"]) as any,
           ]);
-
-          await this.handleChageRichmenu(
-            profile.userId ?? "",
-            process.env.MENU1 ?? ""
-          );
 
           break;
         case "image":
@@ -75,6 +71,18 @@ class WebhookService {
 
   async handleChageRichmenu(userId: string, menuId: string) {
     return await this.line.linkRichMenuToUser(userId, menuId);
+  }
+
+  async getHN(hn: string): Promise<ResponseHN> {
+    return await axios
+      .post(
+        "https://rpi.praram9.com:8088/dev/patient/test",
+        { hn },
+        {
+          headers: { API_KEY: "48fdc36f-01bc-464f-bcec-9a46c7dc0638" },
+        }
+      )
+      .then((r) => r.data);
   }
 }
 

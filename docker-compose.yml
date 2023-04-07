@@ -7,12 +7,11 @@ services:
       - "27017:27017"
     volumes:
       - ./data:/data/db
-    network_mode: bridge
   api:
     image: registry.gitlab.com/madee.tech/registry/lab-lineoa-express:latest
     container_name: lab-lineoa-express-api
     # ports:
-      # - "3000:3000"
+    #   - "3000:3000"
     environment:
       - DB=mongodb://mongodb:27017/node-api-101
     logging:
@@ -22,16 +21,17 @@ services:
             max-size: '500m'
     links:
       - mongodb
-    network_mode: bridge
+   
   web:
     image: registry.gitlab.com/madee.tech/registry/lab-lineoa-express:web
     container_name: lab-lineoa-express-web
-    # ports:
-    #   - "81:80"
+    ports:
+      - "81:80"
     logging:
       driver: "json-file"
       options:
         max-file: '3'
         max-size: '500m'
     network_mode: bridge
+
 

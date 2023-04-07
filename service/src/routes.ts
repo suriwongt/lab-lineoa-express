@@ -12,6 +12,7 @@ class Routes {
   private initializeRoutes() {
     this.router.get(`/user`, this.user_controller.handleGetUser);
     this.router.post(`/user`, this.user_controller.handlePostWebHook);
+    this.router.post(`/user/hn`, this.user_controller.handleGetUserHN);
 
     this.router.get(`/webhook`, this.hook_controller.handleGetWebHook);
     this.router.post(`/webhook`, this.user_controller.handlePostWebHook);
