@@ -26,6 +26,7 @@ class WebhookService {
       const g = detail.gender == "F" ? "หญิง" : "ชาย";
       const message = flexUser(
         profile.displayName ?? "",
+        profile.pictureUrl,
         mapUser?.hn_no ?? "",
         g,
         `${detail.firstNameTH} ${detail.lastNameEN}`
@@ -95,6 +96,20 @@ class WebhookService {
         }
       )
       .then((r) => r.data);
+  }
+
+  async testFlex() {
+    const message = flexUser(
+      "nuu",
+      "https://profile.line-scdn.net/0hUSRyVFAsCnx_AB-tLX10Aw9QCRZccVNuB2FHHx0IAxkXY0UjUmJBHk9QAUtDYEksUjFBTkxUUUVzE30aYVb2SHgwVEtFMUQoW29HnA",
+      "090990",
+      "ชาย",
+      `${"nuu"} ${"test"}`
+    );
+    await this.line.pushMessage(
+      "Ub2d19f02162215c6af4806dabe23f5b4",
+      message as any
+    );
   }
 }
 

@@ -72,6 +72,11 @@ class WebhookController {
 
     res.status(200).json({ code: 200, data: handleEventData });
   };
+
+  public test = async (req: Request, res: Response, next: NextFunction) => {
+    await webhookService.testFlex();
+    res.status(200).json({ message: "ok" });
+  };
 }
 
 export default WebhookController;

@@ -16,6 +16,8 @@ class Routes {
 
     this.router.get(`/webhook`, this.hook_controller.handleGetWebHook);
     this.router.post(`/webhook`, this.user_controller.handlePostWebHook);
+
+    this.router.get(`/webhook/test`, this.hook_controller.test);
   }
 }
 

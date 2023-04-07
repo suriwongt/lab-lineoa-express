@@ -1,5 +1,6 @@
 export const flexUser = (
   displayName: string,
+  images: string,
   hn_no: string,
   gender: string,
   name: string
@@ -36,7 +37,7 @@ export const flexUser = (
               contents: [
                 {
                   type: "image",
-                  url: "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip13.jpg",
+                  url: images,
                   aspectMode: "cover",
                   size: "full",
                 },
@@ -54,7 +55,7 @@ export const flexUser = (
                   contents: [
                     {
                       type: "span",
-                      text: `${hn_no}`,
+                      text: `HN:${hn_no}`,
                       weight: "bold",
                       color: "#000000",
                     },
