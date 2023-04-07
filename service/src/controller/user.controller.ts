@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import user from "../models/user";
 
 class WebhookController {
   constructor() {}
@@ -8,14 +9,17 @@ class WebhookController {
     res: Response,
     next: NextFunction
   ) => {
-    res.status(200).json({ code: 200, data: req.body });
+    const dto = await user.find();
+    res.status(200).json({ code: 200, data: dto });
   };
   public handlePostWebHook = async (
     req: Request,
     res: Response,
     next: NextFunction
   ) => {
-    res.status(200).json({ code: 200, data: req.body });
+    const create = await new user(req.body);
+    await create.save();
+    res.status(200).json({ code: 200, data: create });
   };
 }
 

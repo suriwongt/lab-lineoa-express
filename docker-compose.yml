@@ -7,7 +7,7 @@ services:
       - "27017:27017"
     volumes:
       - ./data:/data/db
-
+    network_mode: bridge
   api:
     image: registry.gitlab.com/madee.tech/registry/lab-lineoa-express:latest
     container_name: lab-lineoa-express-api
@@ -20,6 +20,9 @@ services:
           options:
             max-file: '3'
             max-size: '500m'
+    links:
+      - mongodb
+    network_mode: bridge
   web:
     image: registry.gitlab.com/madee.tech/registry/lab-lineoa-express:web
     container_name: lab-lineoa-express-web
@@ -30,8 +33,5 @@ services:
       options:
         max-file: '3'
         max-size: '500m'
-networks:
-  default:
-    external:
-      name: sandbox_network
+    network_mode: bridge
 
