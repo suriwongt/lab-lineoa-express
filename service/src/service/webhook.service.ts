@@ -1,7 +1,8 @@
 import { Client, EventMessage, EventSource, Postback } from "@line/bot-sdk";
 import axios from "axios";
 import { searckMarketMessage } from "../template/message";
-import { ResponseHN } from "../models/user";
+import user, { ResponseHN } from "../models/user";
+import { flexUser } from "../template/flex";
 
 class WebhookService {
   private line: Client;
@@ -19,6 +20,17 @@ class WebhookService {
   ) {
     const profile = await this.line.getProfile(source.userId || "");
     if (postback.data === "profile") {
+      const mapUser = await user.findOne({ userId: profile.userId });
+      const hnprop = await this.getHN(mapUser?.hn_no || "");
+      const detail = hnprop.detail;
+      const g = detail.gender == "F" ? "หญิง" : "ชาย";
+      const message = flexUser(
+        profile.displayName ?? "",
+        mapUser?.hn_no ?? "",
+        g,
+        `${detail.firstNameTH} ${detail.lastNameEN}`
+      );
+      await this.line.replyMessage(replyToken, message as any);
     }
   }
 

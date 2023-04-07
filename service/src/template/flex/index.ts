@@ -1,85 +1,105 @@
-export const broadcastMarket = (
-  image: string,
-  market_name: string,
-  description: string,
-  url: string
+export const flexUser = (
+  displayName: string,
+  hn_no: string,
+  gender: string,
+  name: string
 ) => ({
   type: "flex",
-  altText: `ด่วน!! ล๊อคว่างให้เช่า จองเลย 🔥`,
+  altText: `ยินดีต้อนรับคุณ ${displayName}`,
   contents: {
-    type: "carousel",
-    contents: [
-      {
-        type: "bubble",
-        hero: {
+    type: "bubble",
+    body: {
+      type: "box",
+      layout: "vertical",
+      contents: [
+        {
           type: "box",
-          layout: "vertical",
+          layout: "horizontal",
           contents: [
             {
               type: "image",
-              url: image,
-              size: "full",
-              aspectRatio: "3:2",
+              url: "https://www.praram9.com/wp-content/uploads/2021/07/Praram9Logo-1.png",
+              size: "5xl",
+              aspectMode: "fit",
+              aspectRatio: "2:1",
+              gravity: "center",
             },
           ],
         },
-        body: {
+        {
           type: "box",
-          layout: "vertical",
+          layout: "horizontal",
           contents: [
             {
-              type: "text",
-              text: "ล๊อคว่างให้เช่า จองเลย",
-              size: "18px",
-              weight: "bold",
-              color: "#1D1E19",
+              type: "box",
+              layout: "vertical",
               contents: [
                 {
-                  type: "span",
-                  text: "ล๊อคว่างให้เช่า",
-                },
-                {
-                  type: "span",
-                  text: market_name,
-                  color: "#00ab4f",
+                  type: "image",
+                  url: "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip13.jpg",
+                  aspectMode: "cover",
+                  size: "full",
                 },
               ],
-              margin: "4px",
-              wrap: true,
+              cornerRadius: "100px",
+              width: "72px",
+              height: "72px",
             },
             {
-              type: "text",
-              size: "16px",
-              weight: "regular",
-              wrap: true,
+              type: "box",
+              layout: "vertical",
               contents: [
                 {
-                  type: "span",
-                  text: description,
+                  type: "text",
+                  contents: [
+                    {
+                      type: "span",
+                      text: `${hn_no}`,
+                      weight: "bold",
+                      color: "#000000",
+                    },
+                  ],
+                  size: "sm",
+                  wrap: true,
+                },
+                {
+                  type: "box",
+                  layout: "baseline",
+                  contents: [
+                    {
+                      type: "text",
+                      text: `ชื่อ:${name}`,
+                      size: "sm",
+                      color: "#bcbcbc",
+                    },
+                  ],
+                  spacing: "sm",
+                  margin: "md",
+                },
+                {
+                  type: "box",
+                  layout: "baseline",
+                  contents: [
+                    {
+                      type: "text",
+                      text: `เพศ:${gender}`,
+                      size: "sm",
+                      color: "#bcbcbc",
+                    },
+                  ],
+                  spacing: "sm",
+                  margin: "md",
                 },
               ],
-              margin: "8px",
             },
           ],
+          spacing: "xl",
+          paddingAll: "20px",
+          borderWidth: "1px",
+          borderColor: "#42BEAB",
         },
-        footer: {
-          type: "box",
-          layout: "vertical",
-          contents: [
-            {
-              type: "button",
-              action: {
-                type: "uri",
-                label: "สนใจจองล๊อค !",
-                uri: url,
-              },
-              margin: "12px",
-              style: "primary",
-              color: "#24a859",
-            },
-          ],
-        },
-      },
-    ],
+      ],
+      paddingAll: "0px",
+    },
   },
 });
