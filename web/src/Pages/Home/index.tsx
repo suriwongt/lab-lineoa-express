@@ -107,7 +107,7 @@ function Home() {
                     aria-label="recipe"
                   ></Avatar>
                 }
-                title={`ยินดีตอนรับ ${profile.displayName}`}
+                title={`ยินดีต้อนรับ ${profile.displayName}`}
               />
               <CardMedia component="img" src={Praram9Logo} alt="logo" />
               <CardContent>
