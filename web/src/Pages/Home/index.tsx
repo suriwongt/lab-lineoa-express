@@ -61,13 +61,13 @@ function Home() {
     },
     onSubmit: async (values) => {
       try {
+        setLoading(true);
         const data = {
           hn_no: values.hn_no,
           ...profile,
         };
         await postProfile(data);
 
-        setLoading(true);
         Swal.fire({
           title: "ลงทะเบียนสำเร็จ",
           icon: "success",
@@ -140,18 +140,20 @@ function Home() {
                       />
                     </Stack>
                   </Grid>
-                  <Grid item xs={12}>
-                    <LoadingButton
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      loading={loading}
-                      loadingPosition="start"
-                    >
-                      ลงทะเบียน
-                    </LoadingButton>
-                  </Grid>
+                  {profile.userId && (
+                    <Grid item xs={12}>
+                      <LoadingButton
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        loading={loading}
+                        loadingPosition="start"
+                      >
+                        ลงทะเบียน
+                      </LoadingButton>
+                    </Grid>
+                  )}
                 </Grid>
               </CardContent>
             </Card>

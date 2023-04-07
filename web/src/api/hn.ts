@@ -28,6 +28,4 @@ export interface Detail {
 //   axios.post(`http://localhost:3000/api/v1/user`, user).then((res) => res.data);
 
 export const postProfile = (user: any): Promise<Response> =>
-  axios
-    .post(`https://lineoa01.praram9.com/api/v1/user`, user)
-    .then((res) => res.data);
+  axios.post(`/api/v1/user`, user).then((res) => res.data);

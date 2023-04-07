@@ -89,7 +89,7 @@ class WebhookService {
   async getHN(hn: string): Promise<ResponseHN> {
     return await axios
       .post(
-        "https://192.168.99.6:8088/dev/patient/test",
+        "http://192.168.99.6:8088/dev/patient/test",
         { hn },
         {
           headers: { API_KEY: "48fdc36f-01bc-464f-bcec-9a46c7dc0638" },
