@@ -1,13 +1,18 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import Routes from './routes';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import Routes from "./routes";
 
-import ThemeCustomization from './theme';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ThemeCustomization from "./theme";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+const queryClient = new QueryClient();
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ThemeCustomization>
-      <Routes />
+      <QueryClientProvider client={queryClient}>
+        <Routes />
+      </QueryClientProvider>
     </ThemeCustomization>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);

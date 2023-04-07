@@ -1,7 +1,7 @@
 version: '3'
 services:
   mongodb:
-    image: mongodb/mongodb-community-server:6.0-ubi8
+    image: registry.gitlab.com/madee.tech/registry/lab-lineoa-express:db
     container_name: mongodb
     ports:
       - "27017:27017"
@@ -11,8 +11,10 @@ services:
   api:
     image: registry.gitlab.com/madee.tech/registry/lab-lineoa-express:latest
     container_name: lab-lineoa-express-api
-    ports:
-      - "3000:3000"
+    # ports:
+      # - "3000:3000"
+    environment:
+      - DB=mongodb://mongodb:27017/node-api-101
     logging:
           driver: "json-file"
           options:
@@ -21,8 +23,8 @@ services:
   web:
     image: registry.gitlab.com/madee.tech/registry/lab-lineoa-express:web
     container_name: lab-lineoa-express-web
-    ports:
-      - "81:80"
+    # ports:
+    #   - "81:80"
     logging:
       driver: "json-file"
       options:

@@ -1,19 +1,21 @@
 import { Router } from "express";
 import WebhookController from "./controller/webhook.controller";
+import UserController from "./controller/user.controller";
+class Routes {
+  public router = Router();
+  public hook_controller = new WebhookController();
+  public user_controller = new UserController();
 
-class Routes{
+  constructor() {
+    this.initializeRoutes();
+  }
+  private initializeRoutes() {
+    this.router.get(`/user`, this.user_controller.handleGetUser);
+    this.router.post(`/user`, this.user_controller.handlePostWebHook);
 
-	public router = Router();
-	public controller = new WebhookController();
-
-    constructor() {
-		this.initializeRoutes();
-	}
-	private initializeRoutes() {
-		this.router.get(`/webhook`, this.controller.handleGetWebHook);
-		this.router.post(`/webhook`, this.controller.handlePostWebHook);
-	}
-
+    this.router.get(`/webhook`, this.hook_controller.handleGetWebHook);
+    this.router.post(`/webhook`, this.user_controller.handlePostWebHook);
+  }
 }
 
-export default new Routes()
+export default new Routes();

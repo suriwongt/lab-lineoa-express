@@ -32,10 +32,6 @@ app.use("/api/v1", routes.router);
 connectDB().then(() => {
   app.listen(port, async () => {
     console.log(`start :${port}`);
-
-    // const user = new User({ name_th: "test" });
-    // await user.save();
-    // webhookService.handleNoti(`start :${port}`);
     displayRoutes(app);
   });
 });
