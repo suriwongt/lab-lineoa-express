@@ -102,5 +102,22 @@ export const flexUser = (
       ],
       paddingAll: "0px",
     },
+    footer: {
+      type: "box",
+      layout: "vertical",
+      contents: [
+        {
+          type: "button",
+          action: {
+            type: "uri",
+            label: "คลิกดูรายละเอียด",
+            uri: "https://liff.line.me/1660839837-qmMLVLaA",
+          },
+          style: "primary",
+          color: "#42BEAB",
+        },
+      ],
+      paddingTop: "15px",
+    },
   },
 });

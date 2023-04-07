@@ -1,4 +1,4 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, Schema, model } from "mongoose";
 
 export interface ResponseHN {
   responseCode: number;
@@ -24,9 +24,29 @@ export interface Detail {
   religion: string;
 }
 
-export class User extends Document {}
+export interface User {
+  hn_no: string;
+  displayName: string;
+  userId: string;
+  pictureUrl: string;
+  profile: {
+    hn: string;
+    titleTH: string;
+    firstNameTH: string;
+    lastNameTH: string;
+    titleEN: string;
+    firstNameEN: string;
+    lastNameEN: string;
+    gender: string;
+    birthDate: string;
+    mobilePhone: string;
+    email: string;
+    nationality: string;
+    religion: string;
+  };
+}
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new Schema<User>({
   hn_no: String,
   displayName: String,
   userId: String,
@@ -48,4 +68,5 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("user", UserSchema);
+const user = model<User>("user", UserSchema);
+export default user;

@@ -6,6 +6,7 @@ dotenv.config();
 import routes from "./routes";
 import mongoes from "./db/mongoes";
 import User from "./models/user";
+import path from "path";
 
 async function connectDB() {
   await mongoes.connect();
@@ -28,6 +29,10 @@ app.get("/api/v1", (req: Request, res: Response) => {
 });
 
 app.use("/api/v1", routes.router);
+app.get("*.*", express.static(path.join(__dirname, "out")));
+app.get(["*"], (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "out/index.html"));
+});
 
 connectDB().then(() => {
   app.listen(port, async () => {

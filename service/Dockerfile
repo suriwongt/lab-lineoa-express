@@ -19,6 +19,7 @@ COPY .env .
 COPY --from=builder /source/dist ./dist
 COPY --from=builder /source/node_modules ./node_modules
 COPY --from=builder /source/package.json .
+COPY ./out ./dist/out
 
 CMD [ "node", "dist/server.js" ]
 

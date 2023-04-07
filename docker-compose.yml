@@ -1,19 +1,20 @@
 version: '3'
 services:
   mongodb:
-    image: registry.gitlab.com/madee.tech/registry/lab-lineoa-express:db
+    image: mongodb/mongodb-community-server:6.0-ubi8
+    command: mongod --bind_ip_all
     container_name: mongodb
-    ports:
-      - "27017:27017"
-    volumes:
-      - ./data:/data/db
+    restart: always
+    network_mode: bridge
   api:
     image: registry.gitlab.com/madee.tech/registry/lab-lineoa-express:latest
     container_name: lab-lineoa-express-api
-    # ports:
-    #   - "3000:3000"
+    restart: always
+    ports:
+      - "3000:3001"
     environment:
       - DB=mongodb://mongodb:27017/node-api-101
+      - PAI=https://rpi.praram9.com:8088/dev/patient/test
     logging:
           driver: "json-file"
           options:
@@ -21,17 +22,4 @@ services:
             max-size: '500m'
     links:
       - mongodb
-   
-  web:
-    image: registry.gitlab.com/madee.tech/registry/lab-lineoa-express:web
-    container_name: lab-lineoa-express-web
-    ports:
-      - "81:80"
-    logging:
-      driver: "json-file"
-      options:
-        max-file: '3'
-        max-size: '500m'
     network_mode: bridge
-
-

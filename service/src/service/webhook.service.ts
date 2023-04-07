@@ -18,22 +18,35 @@ class WebhookService {
     postback: Postback,
     source: EventSource
   ) {
-    const profile = await this.line.getProfile(source.userId || "");
-    if (postback.data === "profile") {
-      const mapUser = await user.findOne({ userId: profile.userId });
-      const hnprop = await this.getHN(mapUser?.hn_no || "");
-      const detail = hnprop.detail;
-      const g = detail.gender == "F" ? "หญิง" : "ชาย";
-      const message = flexUser(
-        profile.displayName ?? "",
-        profile.pictureUrl,
-        mapUser?.hn_no ?? "",
-        g,
-        `${detail.firstNameTH} ${detail.lastNameEN}`
-      );
-      await this.line.replyMessage(replyToken, message as any);
+    try {
+      const profile = await this.line.getProfile(source.userId || "");
+      if (postback.data === "profile") {
+        const mapUser = await user.findOne({ userId: profile.userId });
+        console.log(mapUser);
+        const hnprop = await this.getHN(mapUser?.hn_no || "");
+        const detail = hnprop.detail;
+        const g = detail.gender == "F" ? "หญิง" : "ชาย";
+        const message = flexUser(
+          profile.displayName ?? "",
+          profile.pictureUrl,
+          mapUser?.hn_no ?? "",
+          g,
+          `${detail.firstNameTH ?? ""} ${detail.lastNameEN ?? ""}`
+        );
+        await this.line.replyMessage(replyToken, message as any);
+      }
+      if (postback.data === "logout") {
+        await this.handleLogout(profile.userId);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
+
+  handleLogout = async (userId: string) => {
+    await this.line.unlinkRichMenuFromUser(userId);
+    await user.deleteMany({ userId });
+  };
 
   handleReplyTokenMessage = async (
     replyToken: string,
@@ -89,7 +102,7 @@ class WebhookService {
   async getHN(hn: string): Promise<ResponseHN> {
     return await axios
       .post(
-        "https://rpi.praram9.com:8088/dev/patient/test",
+        `${process.env.PAI}`,
         { hn },
         {
           headers: { API_KEY: "48fdc36f-01bc-464f-bcec-9a46c7dc0638" },
