@@ -88,6 +88,13 @@ function Home() {
     },
   });
 
+  const handleChange = (e: any) => {
+    const regex = /^[0-9\b]+$/;
+    if (e.target.value === "" || regex.test(e.target.value)) {
+      formik.setFieldValue("hn_no", e.target.value);
+    }
+  };
+
   return (
     <Container>
       <form onSubmit={formik.handleSubmit}>
@@ -128,7 +135,6 @@ function Home() {
                         id={"hn_no"}
                         name={"hn_no"}
                         value={formik.values["hn_no"]}
-                        type={"text"}
                         error={
                           formik.touched["hn_no"] &&
                           Boolean(formik.errors["hn_no"])
@@ -136,8 +142,9 @@ function Home() {
                         helperText={
                           formik.touched["hn_no"] && formik.errors["hn_no"]
                         }
+                        inputProps={{ maxLength: 6 }}
                         onBlur={formik.handleBlur}
-                        onChange={formik.handleChange}
+                        onChange={handleChange}
                       />
                     </Stack>
                   </Grid>

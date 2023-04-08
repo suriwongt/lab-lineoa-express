@@ -54,13 +54,25 @@ class WebhookService {
     source: EventSource
   ): Promise<any> => {
     try {
-      console.log(source);
       switch (message.type) {
         case "text":
-          await this.line.replyMessage(replyToken, [
-            { type: "text", text: "ยินดีให้บริการกรุณาเลือกเมนู" },
-            searckMarketMessage(["ชาย", "หญิง"]) as any,
-          ]);
+          if (message.text === "ยกเลิก") {
+            await this.line.replyMessage(replyToken, [
+              {
+                type: "text",
+                text: "ขอบคุณที่ใช้บริการค่ะ",
+              },
+            ]);
+          } else {
+            await this.line.replyMessage(replyToken, [
+              searckMarketMessage("กรุณาเลือกดำเนินการ", [
+                "แพคเกจตรวจสุขภาพ",
+                "นัดหมาย",
+                "พบแพทย์",
+                "ยกเลิก",
+              ]) as any,
+            ]);
+          }
 
           break;
         case "image":
